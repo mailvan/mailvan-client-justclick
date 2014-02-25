@@ -3,6 +3,8 @@
 
 namespace Mailvan\Client\Justclick;
 
+use Guzzle\Common\Collection;
+use Guzzle\Service\Description\ServiceDescription;
 use Mailvan\Core\Client as BaseClient;
 use Mailvan\Core\MailvanException;
 use Mailvan\Core\Model\SubscriptionListInterface;
@@ -11,6 +13,21 @@ use Mailvan\Core\Model\UserInterface;
 
 class Client extends BaseClient
 {
+    public static function factory($config = [])
+    {
+        $required = array('base_url', 'username', 'api_key');
+
+        $config = Collection::fromConfig($config, array(), $required);
+
+        $config->set('base_url', str_replace('%%username%%', $config->get('username'), $config->get('base_url')));
+
+        $client = new self($config->get('base_url'), $config);
+
+        $client->setDescription(ServiceDescription::factory(dirname(__FILE__).'/operations.json'));
+
+        return $client;
+    }
+
     protected function signRequest($params)
     {
         return md5(sprintf("%s::%s::%s",
