@@ -1,0 +1,61 @@
+{
+    "name": "justclick",
+    "operations": {
+        "subscribe": {
+            "httpMethod": "POST",
+            "uri": "AddLeadToGroup",
+            "summary": "Subscribe user to list",
+            "responseClass": "IM\\MailingList\\Client\\JustClick\\Response\\Subscription",
+            "parameters": {
+                "rid": {
+                    "location": "postField",
+                    "required": true
+                },
+                "lead_name":{
+                    "location": "postField",
+                    "required": true
+                },
+                "lead_email": {
+                    "location": "postField",
+                    "required": true
+                },
+                "hash": {
+                    "location": "postField",
+                    "required": true
+                }
+            }
+        },
+
+        "unsuscribe": {
+            "httpMethod": "POST",
+            "uri": "",
+            "summary": "Deletes subscriber from given list",
+            "parameters": {
+                "lead_email": {
+                    "location": "postField",
+                    "required": true
+                },
+                "rass_name": {
+                    "location": "postField",
+                    "required": true
+                },
+                "hash": {
+                    "location": "postField",
+                    "required": true
+                }
+            }
+        },
+
+        "getLists":{
+            "httpMethod": "POST",
+            "uri": "GetAllGroups",
+            "summary": "Get subscription lists",
+            "parameters": {
+                "hash": {
+                    "location": "postField",
+                    "required": true
+                }
+            }
+        }
+    }
+}
